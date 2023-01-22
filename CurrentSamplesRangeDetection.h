@@ -1,0 +1,1 @@
+int ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int CurrentSamplesize  ) ;
