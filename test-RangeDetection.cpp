@@ -5,7 +5,7 @@
 
 int samples[]={3,3,5,4,10,11,12};
 int size = sizeof(samples)/sizeof(samples[0]) ;
-TestLog Info[size];
+TestLog Info[20];
 
 
 TEST_CASE("Current Samples RangeDetection Testcase1") {
