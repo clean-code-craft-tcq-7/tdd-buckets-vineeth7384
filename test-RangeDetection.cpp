@@ -26,6 +26,7 @@ TEST_CASE("Current Samples RangeDetection Testcase3") {
 TEST_CASE("Current Samples RangeDetection Testcase4") {
 	int LogCount;
 	ChargingCurrentRangeDetection(3,12,&samples[0],size,Info,&LogCount);
-     REQUIRE(Info[1].Count ==3 );
+        REQUIRE(Info[0].Count ==4 );
+	REQUIRE(Info[1].Count ==3 );
 }
 
