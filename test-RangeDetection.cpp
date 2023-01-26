@@ -5,14 +5,27 @@
 
 int samples[]={3,3,5,4,10,11,12};
 int size = sizeof(samples)/sizeof(samples[0]) ;
+TestLog Info[size];
+
 
 TEST_CASE("Current Samples RangeDetection Testcase1") {
-  REQUIRE( ChargingCurrentRangeDetection(3,5,&samples[0],size) == 4);
+	int LogCount;
+	ChargingCurrentRangeDetection(3,5,&samples[0],size,Info,&LogCount);
+    REQUIRE( Info[0].Count == 4);
 }
 TEST_CASE("Current Samples RangeDetection Testcase2") {
-  REQUIRE( ChargingCurrentRangeDetection(10,12,&samples[0],size) == 3);
+	int LogCount;
+	ChargingCurrentRangeDetection(10,12,&samples[0],size,Info,&LogCount);
+    REQUIRE( Info[0].Count == 3);
 }
 TEST_CASE("Current Samples RangeDetection Testcase3") {
-  REQUIRE( ChargingCurrentRangeDetection(4,5,&samples[0],size) == 2);
+	int LogCount;
+	ChargingCurrentRangeDetection(4,5,&samples[0],size,Info,&LogCount);
+    REQUIRE( Info[0].Count == 2);
+}
+TEST_CASE("Current Samples RangeDetection Testcase4") {
+	int LogCount;
+	ChargingCurrentRangeDetection(3,12,&samples[0],size,Info,&LogCount);
+    REQUIRE( Info[0].Count == 4 && Info[1].Count ==3 );
 }
 
