@@ -31,11 +31,14 @@ TEST_CASE("Current Samples RangeDetection Testcase4") {
 }
 TEST_CASE("Current Samples RangeDetection Testcase5 -Negative TestCase") {
 	int LogCount;
+	Info[0].Count = 0;
+	
 	ChargingCurrentRangeDetection(13,15,&samples[0],size,Info,&LogCount);
     REQUIRE( Info[0].Count == 0);
 }
 TEST_CASE("Current Samples RangeDetection Testcase6") {
 	int LogCount;
+	Info[0].Count = 0;
 	ChargingCurrentRangeDetection(3,3,&samples[0],size,Info,&LogCount);
     REQUIRE( Info[0].Count == 2);
 }
