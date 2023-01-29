@@ -5,6 +5,14 @@
 
 static char resultBuffer[100]; 
 
+void ClearResultBuffer()
+{
+    for(int i = 0;i<100;i++)
+    {
+        resultBuffer[i] = 0;
+    }
+}
+
 int compareForAscending(const void * a, const void * b)
 {
     return ( *(int*)a - *(int*)b );
@@ -20,6 +28,7 @@ char* PrintCSVFormattedOutput(CurrentSamplesInfo *Report ,int CountForRangeCalcu
     
     printf("Range, Readings\n");
     char temp[20];
+    ClearResultBuffer();
     for(int count = 0;count<=CountForRangeCalculation;count++)
     {
         sprintf(temp,"%d-%d, %d\n",Report[count].Start,Report[count].End,Report[count].Count);
