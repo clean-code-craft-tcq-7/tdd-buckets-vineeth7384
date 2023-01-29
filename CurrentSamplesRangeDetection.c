@@ -42,61 +42,55 @@ char* PrintCSVFormattedOutput(CurrentSamplesInfo *Report ,int CountForRangeCalcu
     return resultBuffer;
 }
 
-void FindRangeofNonDuplicateElements(int *CurrentSample,int i)
+void FindRangeofNonDuplicateElements(int *CurrentSample,int i,int end)
 {
     if(CurrentSample[i] +1 == CurrentSample[i+1])
     {
-
         count++ ;
-        EndRange = CurrentSample[i+1];
     }
     else
     {
         CountForRangeCalculation +=1 ;
         count= 1;
         StartRange = CurrentSample[i+1] ;
-        EndRange = CurrentSample[i+1] ;
     }
-    
+    EndRange = CurrentSample[i+1];   
 }
 
 
 void RangeValidation(int start,int end,int *CurrentSample,int i)
 {
-    if(CurrentSample[i]>= start && CurrentSample[i]< end)
+    if(CurrentSample[i]>= start && CurrentSample[i+1]<= end)
     {
         if (CurrentSample[i]==CurrentSample[i+1])
         {
-            count = count+1;
+            count = count+2;
         }
-            
         else
         {
-            FindRangeofNonDuplicateElements(&CurrentSample[0],i);
+            FindRangeofNonDuplicateElements(&CurrentSample[0],i,end);
         }
-    }
-    
+    } 
 }
 
 char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int CurrentSamplesize ) 
 {
     StartRange = start ;
-    EndRange = start;
+    EndRange = end;
     CountForRangeCalculation = 0;
-    count = 1;
+    count = 0;
     char*Output ;
     CurrentSamplesInfo CurrentSampleInfo[CurrentSamplesize] ;
     SortArrayInAscendingOrder(&CurrentSample[0],CurrentSamplesize);
     
-    for(int i =0;i<CurrentSamplesize;i++)
+    for(int i =0; i< CurrentSamplesize-1; i++)
     {
         RangeValidation(start,end,&CurrentSample[0],i);
         CurrentSampleInfo[CountForRangeCalculation].Start = StartRange;
         CurrentSampleInfo[CountForRangeCalculation].End = EndRange;
         CurrentSampleInfo[CountForRangeCalculation].Count = count;
     }
+
     Output = PrintCSVFormattedOutput (&CurrentSampleInfo[0] ,CountForRangeCalculation);
     return Output ;
-
 }
-
