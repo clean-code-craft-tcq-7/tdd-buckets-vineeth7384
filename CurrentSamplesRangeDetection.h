@@ -3,5 +3,5 @@ typedef struct
   int Start;
   int End;
   int Count;
-}CurrentSamplesLog;
+}CurrentSamplesInfo;
 char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int CurrentSamplesize ); 
