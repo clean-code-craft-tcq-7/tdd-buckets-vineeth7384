@@ -7,7 +7,7 @@ static char resultBuffer[100];
 int StartRange ;
 int EndRange;
 int CountForRangeCalculation = 0;
-int count = 1;
+int count ;
 
 void ClearResultBuffer()
 {
@@ -83,6 +83,7 @@ char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int Cur
     StartRange = start ;
     EndRange = start;
     CountForRangeCalculation = 0;
+    count = 1;
     char*Output ;
     CurrentSamplesInfo CurrentSampleInfo[CurrentSamplesize] ;
     SortArrayInAscendingOrder(&CurrentSample[0],CurrentSamplesize);
