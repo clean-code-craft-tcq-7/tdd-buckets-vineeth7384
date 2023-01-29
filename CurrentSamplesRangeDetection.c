@@ -129,7 +129,7 @@ char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int Cur
 	        start_index = FailedArrayIndex;
 	        ContinousFlag, FailedArrayIndex = Check_ArrayContinous(start_index,end_index,CurrentSample,&count) ;
 	        CountForRangeSeparation++;
-	        UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, end_index, count,CurrentSample);
+	        UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, end_index, count+1,CurrentSample);
 	        loopiterationexitCount--;
 	    }
 	    
