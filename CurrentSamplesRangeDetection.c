@@ -67,7 +67,7 @@ void RangeValidation(int start,int end,int *CurrentSample,int i)
     {
         if (CurrentSample[i]==CurrentSample[i+1])
         {
-            count = count+1;
+            count = count+2;
         }
             
         else
@@ -81,9 +81,9 @@ void RangeValidation(int start,int end,int *CurrentSample,int i)
 char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int CurrentSamplesize ) 
 {
     StartRange = start ;
-    EndRange = start;
+    EndRange = end;
     CountForRangeCalculation = 0;
-    count = 1;
+    count = 0;
     char*Output ;
     CurrentSamplesInfo CurrentSampleInfo[CurrentSamplesize] ;
     SortArrayInAscendingOrder(&CurrentSample[0],CurrentSamplesize);
