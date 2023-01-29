@@ -60,6 +60,24 @@ void FindRangeofNonDuplicateElements(int *CurrentSample,int i)
     
 }
 
+
+void RangeValidation(int start,int end,int *CurrentSample,int i)
+{
+    if(CurrentSample[i]>= start && CurrentSample[i]< end)
+    {
+        if (CurrentSample[i]==CurrentSample[i+1])
+        {
+            count = count+1;
+        }
+            
+        else
+        {
+            FindRangeofNonDuplicateElements(&CurrentSample[0],i);
+        }
+    }
+    
+}
+
 char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int CurrentSamplesize ) 
 {
     StartRange = start ;
@@ -71,24 +89,12 @@ char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int Cur
     
     for(int i =0;i<CurrentSamplesize;i++)
     {
-        if(CurrentSample[i]>= start && CurrentSample[i]<end)
-        {
-            if (CurrentSample[i]==CurrentSample[i+1])
-            {
-                count = count+1;
-            }
-            
-            else
-            {
-                FindRangeofNonDuplicateElements(&CurrentSample[0],i);
-            }
-        }
+        RangeValidation(start,end,&CurrentSample[0],i);
         CurrentSampleInfo[CountForRangeCalculation].Start = StartRange;
         CurrentSampleInfo[CountForRangeCalculation].End = EndRange;
         CurrentSampleInfo[CountForRangeCalculation].Count = count;
-
     }
-    Output = PrintCSVFormattedOutput ( &CurrentSampleInfo[0] ,CountForRangeCalculation);
+    Output = PrintCSVFormattedOutput (&CurrentSampleInfo[0] ,CountForRangeCalculation);
     return Output ;
 
 }
