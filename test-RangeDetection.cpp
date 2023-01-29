@@ -2,44 +2,50 @@
 
 #include "test/catch.hpp"
 #include "CurrentSamplesRangeDetection.h"
+#include<string.h>
+
 
 int samples[]={3,3,5,4,10,11,12};
 int size = sizeof(samples)/sizeof(samples[0]) ;
-TestLog Info[20];
 
 
-TEST_CASE("Current Samples RangeDetection Testcase1") {
-	int LogCount;
-	ChargingCurrentRangeDetection(3,5,&samples[0],size,Info,&LogCount);
-    REQUIRE( Info[0].Count == 4);
-}
-TEST_CASE("Current Samples RangeDetection Testcase2") {
-	int LogCount;
-	ChargingCurrentRangeDetection(10,12,&samples[0],size,Info,&LogCount);
-    REQUIRE( Info[0].Count == 3);
-}
-TEST_CASE("Current Samples RangeDetection Testcase3") {
-	int LogCount;
-	ChargingCurrentRangeDetection(4,5,&samples[0],size,Info,&LogCount);
-    REQUIRE( Info[0].Count == 2);
-}
-TEST_CASE("Current Samples RangeDetection Testcase4") {
-	int LogCount;
-	ChargingCurrentRangeDetection(3,12,&samples[0],size,Info,&LogCount);
-        REQUIRE(Info[0].Count ==4 );
-	REQUIRE(Info[1].Count ==3 );
-}
-TEST_CASE("Current Samples RangeDetection Testcase5 -Negative TestCase") {
-	int LogCount;
-	Info[0].Count = 0;
+TEST_CASE("Given 4,5 as input when ChargingCurrentRangeDetection called then 4-5,2 is expected ") {
+	int result;
+	char*str = ChargingCurrentRangeDetection(4,5,&samples[0],size);
+	const char *expected = "4-5, 2\n" ;
+	result = strcmp(expected,str);
+	REQUIRE(result == 0 );
 	
-	ChargingCurrentRangeDetection(13,15,&samples[0],size,Info,&LogCount);
-    REQUIRE( Info[0].Count == 0);
 }
-TEST_CASE("Current Samples RangeDetection Testcase6-negative testcases") {
-	int LogCount;
-	Info[0].Count = 0;
-	ChargingCurrentRangeDetection(3,3,&samples[0],size,Info,&LogCount);
-    REQUIRE( Info[0].Count == 0);
+
+TEST_CASE("Given 3,4 as input when ChargingCurrentRangeDetection called then 3-4,3 is expected ") {
+	int result;
+	char*str = ChargingCurrentRangeDetection(3,4,&samples[0],size);
+	const char *expected = "3-4, 3\n" ;
+	result = strcmp(expected,str);
+	REQUIRE(result == 0 );
+	
 }
+
+
+TEST_CASE("Given 3,10 as input when ChargingCurrentRangeDetection called then 3-5,4 10-10,1 is expected ") {
+	int result;
+	char*str = ChargingCurrentRangeDetection(3,10,&samples[0],size);
+	const char *expected = "3-5, 4\n10-10, 1\n" ; 
+	result = strcmp(expected,str);
+	REQUIRE(result == 0 );
+	
+}
+
+TEST_CASE("Given 3,12 as input when ChargingCurrentRangeDetection called then 3-5,4 10-12,3 is expected ") {
+	int result;
+	char*str = ChargingCurrentRangeDetection(3,12,&samples[0],size);
+	const char *expected = "3-5, 4\n10-12, 3\n" ;
+	result = strcmp(expected,str);
+	REQUIRE(result == 0 );
+	
+}
+
+
+
 
