@@ -73,24 +73,20 @@ int FindEndIndex(int *CurrentSample,int size,int start_index,int end)
     return end_index;
 }
 
-int Check_ArrayContinous(int start_index,int end_index,int* CurrentSample,int*count )
+int Check_ArrayContinous(int start_index,int end_index,int* CurrentSample)
 {
     int FailedArrayIndex = 0;
-    int flag = 1;
-    *count = 0 ;
     for ( int index = start_index ;index<end_index;index++)
     {
         
         int elementDifference = (CurrentSample[index+1] - CurrentSample[index]) ;
-        (*count)++;
         if (elementDifference >=2 )
         {
-            flag = 0;
             FailedArrayIndex = index + 1;
             break;
         }
     }
-    return flag,FailedArrayIndex ;
+    return FailedArrayIndex ;
 }
 
 void UpdateCurrentSampleInfo( int CountForRangeSeparation,int start_index,int end_index,int count,int*CurrentSample)
@@ -104,39 +100,43 @@ void UpdateCurrentSampleInfo( int CountForRangeSeparation,int start_index,int en
 char* ChargingCurrentRangeDetection(int start,int end,int *CurrentSample,int CurrentSamplesize ) 
 {
     char*Output ;
-    int start_index ,end_index,ContinousFlag,count = 0;
+    int start_index ,end_index,count = 0;
     int FailedArrayIndex=1;
     int CountForRangeSeparation = 0;
-    int loopiterationexitCount;
 
     SortArrayInAscendingOrder(&CurrentSample[0],CurrentSamplesize);
     start_index = FindStartIndex(CurrentSample,CurrentSamplesize,start);
     end_index = FindEndIndex(CurrentSample,CurrentSamplesize,start_index,end);
-	ContinousFlag, FailedArrayIndex = Check_ArrayContinous(start_index,end_index,CurrentSample,&count) ;
-	if(FailedArrayIndex ==0 )
-	{
-		count = end_index - start_index + 1;
-		UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, end_index, count,CurrentSample);
-	}
-	else 
-	{
-        start_index = 0;
-	    UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, FailedArrayIndex -1, FailedArrayIndex,CurrentSample);
-	    loopiterationexitCount = CurrentSamplesize - FailedArrayIndex;
-
-	    while((FailedArrayIndex != 0) && loopiterationexitCount!=0 )
-	    {
-	        start_index = FailedArrayIndex;
-	        ContinousFlag, FailedArrayIndex = Check_ArrayContinous(start_index,end_index,CurrentSample,&count) ;
-	        CountForRangeSeparation++;
-	        UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, end_index, count+1,CurrentSample);
-	        loopiterationexitCount--;
-	    }
-	    
-	    
-	}
-	
-
+    FailedArrayIndex = Check_ArrayContinous(start_index,end_index,CurrentSample) ;
+    if(FailedArrayIndex ==0 )
+    {
+        count = end_index - start_index + 1;
+        UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, end_index, count,CurrentSample);
+    }
+    else 
+    {
+        count = FailedArrayIndex - start_index;
+        UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, FailedArrayIndex -1, count,CurrentSample);
+        
+        for (int i =FailedArrayIndex ;i<=end_index ;i++)
+        {
+           start_index = FailedArrayIndex;
+           FailedArrayIndex = Check_ArrayContinous(start_index,end_index,CurrentSample);
+           CountForRangeSeparation++;
+           if(FailedArrayIndex==0)
+           {
+               count =  end_index - start_index +1 ;
+               UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, end_index, count,CurrentSample);
+               break;
+           }
+           else
+           {
+               count = FailedArrayIndex- start_index  ;
+               UpdateCurrentSampleInfo(CountForRangeSeparation,start_index, FailedArrayIndex-1, count,CurrentSample);
+           }
+           
+        }  
+    }
     Output = PrintCSVFormattedOutput (&CurrentSampleInfo[0],CountForRangeSeparation);
     return Output ;
 }
