@@ -54,5 +54,14 @@ TEST_CASE("Given 3,12 as input when ChargingCurrentRangeDetection called then 3-
 	REQUIRE(result == 0 );
 	
 }
+TEST_CASE("Given 5,16 as input when ChargingCurrentRangeDetection called then 5-5,1 10-12,3 is expected ") {
+	int result;
+	char*str = ChargingCurrentRangeDetection(5,16,&samples[0],size);
+	const char *expected = "5-5, 1\n10-12, 3\n" ;
+	result = strcmp(expected,str);
+	REQUIRE(result == 0 );
+	
+}
+
 
 
