@@ -62,6 +62,14 @@ TEST_CASE("Given 5,16 as input when ChargingCurrentRangeDetection called then 5-
 	REQUIRE(result == 0 );
 	
 }
+TEST_CASE("Given 15,16 as input when ChargingCurrentRangeDetection called then empty string is expected ") {
+	int result;
+	char*str = ChargingCurrentRangeDetection(15,16,&samples[0],size);
+	const char *expected = "" ;
+	result = strcmp(expected,str);
+	REQUIRE(result == 0 );
+	
+}
 
 
 
