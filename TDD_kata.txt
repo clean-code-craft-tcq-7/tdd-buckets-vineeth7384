@@ -1,0 +1,21 @@
+Requirement Specification:
+
+1.A software program that takes an array of periodic current samples from a charging session as input and outputs the number of readings in each range.
+2.The program shall be detect the ranges and provide the number of readings in each range.
+
+Test Specification
+
+1.Test the program to verify if it can identify the different ranges of readings and provide the number of readings in each range.
+2.Test the program to verify if it can handle a case where all readings belong to the same range.
+3.Test the program to verify if it can handle overlapping ranges and provide correct results.
+4.Test the program to verify if it can handle a case where readings are evenly spaced and belong to the same range.
+5.Test the program to verify if it can handle a case where readings belong to multiple ranges and have a mixture of large and small values
+6.Test the program to verify if it can handle a case where readings belong to multiple ranges and have duplicate values.
+
+
+
+
+
+
+
+
