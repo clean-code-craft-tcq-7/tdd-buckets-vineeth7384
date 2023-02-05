@@ -100,7 +100,7 @@ TEST_CASE("Given1000 as input when convert_to_amps_10BITADC called then 5 is exp
 	int validate10BITReadResult = -1 ;
 	int a2d_reading = 1000;
 	validate10BITReadResult = validate10BITReading(a2d_reading);
-	if (validate12BITReadResult == 0)
+	if (validate10BITReadResult == 0)
     {
          adcresult = convert_to_amps_10BITADC(a2d_reading);
     }
