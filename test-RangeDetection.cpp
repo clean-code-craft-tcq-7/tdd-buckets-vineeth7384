@@ -2,6 +2,7 @@
 
 #include "test/catch.hpp"
 #include "CurrentSamplesRangeDetection.h"
+#include "Extension.h"
 #include<string.h>
 
 
@@ -71,4 +72,53 @@ TEST_CASE("Given 5,16 as input when ChargingCurrentRangeDetection called then 5-
 	result = strcmp(expected,str);
 	REQUIRE(result == 0 );
 	
+}
+TEST_CASE("Given2000 as input when convert_to_amps_12BITADC called then 5 is expected ") {
+	int adcresult = -1;
+	int validate12BITReadResult = -1 ;
+	int a2d_reading = 2000;
+	validate12BITReadResult = validate12BITReading(a2d_reading);
+	if (validate12BITReadResult == 0)
+    {
+         adcresult = convert_to_amps_12BITADC(a2d_reading);
+    }
+	REQUIRE(adcresult == 5 );
+}
+TEST_CASE("Given5000 as input when convert_to_amps_12BITADC called then error is expected ") {
+	int adcresult = -1;
+	int validate12BITReadResult = -1 ;
+	int a2d_reading = 5000;
+	validate12BITReadResult = validate12BITReading(a2d_reading);
+	if (validate12BITReadResult == 0)
+    {
+         adcresult = convert_to_amps_12BITADC(a2d_reading);
+    }
+	REQUIRE(adcresult == -1 );
+}
+TEST_CASE("Given1000 as input when convert_to_amps_10BITADC called then 5 is expected ") {
+	int adcresult = -1;
+	int validate10BITReadResult = -1 ;
+	int a2d_reading = 1000;
+	validate10BITReadResult = validate10BITReading(a2d_reading);
+	if (validate12BITReadResult == 0)
+    {
+         adcresult = convert_to_amps_10BITADC(a2d_reading);
+    }
+	REQUIRE(adcresult == 14 );
+}
+TEST_CASE("Given 2000 as input when convert_to_amps_10BITADC called then error is expected ") {
+	int adcresult = -1;
+	int validate10BITReadResult = -1 ;
+	int a2d_reading = 2000;
+	validate10BITReadResult = validate10BITReading(a2d_reading);
+	if (validate10BITReadResult == 0)
+    {
+         adcresult = convert_to_amps_10BITADC(a2d_reading);
+    }
+	REQUIRE(adcresult == -1 );
+}
+TEST_CASE("Given -15 as input when absolute_value called then 15 is expected ") {
+	int result =0 ;
+	result = absolute_value(-15);
+	REQUIRE(result == 15 )
 }
