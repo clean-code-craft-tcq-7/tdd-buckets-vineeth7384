@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include "Extension.h"
 
 int convert_to_amps_12BITADC( int a2d_reading)
 {
