@@ -120,5 +120,5 @@ TEST_CASE("Given 2000 as input when convert_to_amps_10BITADC called then error i
 TEST_CASE("Given -15 as input when absolute_value called then 15 is expected ") {
 	int result =0 ;
 	result = absolute_value(-15);
-	REQUIRE(result == 15 )
+	REQUIRE(result == 15 );
 }
